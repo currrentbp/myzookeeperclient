@@ -10,11 +10,8 @@ import io.netty.channel.pool.FixedChannelPool;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class NettyPool {
-    private static final Logger log = LoggerFactory.getLogger("netty-demo");
 
     public static ChannelPoolMap<String, FixedChannelPool> poolMap;
 
@@ -41,7 +38,6 @@ public class NettyPool {
                     public void channelReleased(Channel ch) throws Exception {
                         // 刷新管道里的数据
                         // ch.writeAndFlush(Unpooled.EMPTY_BUFFER); // flush掉所有写回的数据
-                        log.debug("channelReleased......");
                     }
 
                     /**
@@ -50,7 +46,6 @@ public class NettyPool {
                      */
                     @Override
                     public void channelCreated(Channel ch) throws Exception {
-                        log.debug("channelCreated......");
 
                         ch.pipeline().addLast(new StringEncoder());
 //                        ch.pipeline().addLast(new DelimiterBasedFrameDecoder(Integer.MAX_VALUE, Delimiters.lineDelimiter()[0]));
@@ -64,7 +59,6 @@ public class NettyPool {
                      */
                     @Override
                     public void channelAcquired(Channel ch) throws Exception {
-                        log.debug("channelAcquired......");
                     }
                 };
 
