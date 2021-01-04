@@ -10,9 +10,6 @@ import io.netty.util.concurrent.FutureListener;
 
 /**
  * 描述
- *
- * @author : JiaMing
- * @date : 2020/04/26 18:25
  */
 public class NettyClientService {
 

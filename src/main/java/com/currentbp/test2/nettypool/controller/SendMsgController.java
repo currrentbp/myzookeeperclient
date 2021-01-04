@@ -6,9 +6,6 @@ import com.currentbp.test2.nettypool.service.NettyClientService;
 /**
  * 使用netty连接池发送消息
  * 异步等待回调结果测试
- *
- * @author : Jamin
- * @date : 2020/04/26 18:11
  */
 public class SendMsgController {
     NettyClientService nettyClientService;

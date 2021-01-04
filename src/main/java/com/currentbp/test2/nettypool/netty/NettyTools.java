@@ -11,7 +11,6 @@ import java.util.concurrent.TimeUnit;
 
 public class NettyTools {
 
-
     /**
      * 响应消息缓存
      */
@@ -63,7 +62,6 @@ public class NettyTools {
             return;
         }
 
-        log.warn("sn {}不存在",key);
     }
 
 }

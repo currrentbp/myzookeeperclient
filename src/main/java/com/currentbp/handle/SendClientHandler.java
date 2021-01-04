@@ -3,7 +3,7 @@ package com.currentbp.handle;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 
-public class ClientHandler extends BaseClientHandler {
+public class SendClientHandler extends BaseClientHandler {
 
 
     /**
