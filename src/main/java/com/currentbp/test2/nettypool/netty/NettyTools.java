@@ -3,8 +3,6 @@ package com.currentbp.test2.nettypool.netty;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
@@ -12,8 +10,6 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
 public class NettyTools {
-
-    private static final Logger log = LoggerFactory.getLogger("netty-demo");
 
     /**
      * 响应消息缓存
@@ -41,7 +37,6 @@ public class NettyTools {
             return vo;
         } catch (Exception e) {
 
-            log.error("获取数据异常,sn={},msg=null",key);
 
             return null;
         }
@@ -67,7 +62,6 @@ public class NettyTools {
             return;
         }
 
-        log.warn("sn {}不存在",key);
     }
 
 }

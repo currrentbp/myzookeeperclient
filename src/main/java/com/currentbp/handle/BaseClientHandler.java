@@ -1,5 +1,6 @@
 package com.currentbp.handle;
 
+import com.currentbp.agreement.BaseAgreement;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -9,22 +10,6 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
  * @createTime 20201223
  */
 public abstract class BaseClientHandler extends ChannelInboundHandlerAdapter {
-    /**
-     * 本方法用于接收服务端发送过来的消息
-     *
-     * @param ctx
-     * @param msg
-     * @throws Exception
-     */
-    @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        System.out.println("SimpleClientHandler.channelRead");
-        ByteBuf result = (ByteBuf) msg;
-        byte[] result1 = new byte[result.readableBytes()];
-        result.readBytes(result1);
-        System.out.println("Server said:" + new String(result1));
-        result.release();
-    }
 
     /**
      * 本方法用于处理异常
@@ -39,5 +24,7 @@ public abstract class BaseClientHandler extends ChannelInboundHandlerAdapter {
         cause.printStackTrace();
         ctx.close();
     }
+
+
 
 }
