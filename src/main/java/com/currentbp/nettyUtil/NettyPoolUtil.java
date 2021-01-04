@@ -21,10 +21,12 @@ public class NettyPoolUtil {
     public NettyPoolUtil() {
         poolMap = new AbstractChannelPoolMap<String, FixedChannelPool>() {
             @Override
-            protected FixedChannelPool newPool(String key) {
+            protected FixedChannelPool newPool(String hostAndPort) {
                 Bootstrap bootstrap = new Bootstrap();
                 bootstrap.group(new NioEventLoopGroup());//EventLoop的组
                 bootstrap.channel(NioSocketChannel.class);//用于构造socketchannel工厂
+                String[] hp = hostAndPort.split(":");
+                bootstrap.remoteAddress(hp[0],Integer.parseInt(hp[1]));
                 //构建handle
                 ChannelPoolHandler handler = new ChannelPoolHandler() {
                     /**

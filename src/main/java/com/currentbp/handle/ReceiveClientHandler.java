@@ -20,8 +20,9 @@ public class ReceiveClientHandler extends BaseClientHandler {
         System.out.println("ReceiveClientHandler, receive body:" + msg.toString());
         BaseAgreement baseAgreement = (BaseAgreement) msg;
         String id = baseAgreement.getId();
+        String originalId = baseAgreement.getOriginalId();
         String body = baseAgreement.getBody();
         int type = baseAgreement.getType();
-        new MyLocalCache().setCache(id, msg);
+        new MyLocalCache().setCache(originalId, msg);
     }
 }
