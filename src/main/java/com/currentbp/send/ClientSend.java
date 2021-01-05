@@ -19,13 +19,9 @@ public class ClientSend {
 
     private static final String hostAndPort = "127.0.0.1:8088";
 
-    public BaseAgreement send(String key, String msg) {
-        BaseAgreement baseAgreement = new BaseAgreement();
-        baseAgreement.setBody(msg);
-        baseAgreement.setId("1");//todo not work
-        baseAgreement.setType(0);
-
+    public BaseAgreement send(String hostAndPort,BaseAgreement baseAgreement){
         try {
+            new MyLocalCache().initKey(baseAgreement.getId());
             FixedChannelPool fixedChannelPool = new NettyPoolUtil().poolMap.get(hostAndPort);
             Future<Channel> acquire = fixedChannelPool.acquire();
             acquire.addListener(new FutureListener<Channel>() {
@@ -39,7 +35,6 @@ public class ClientSend {
                     fixedChannelPool.release(channel);
                 }
             });
-//            Thread.sleep(111L);
             Object value = new MyLocalCache().getCache(baseAgreement.getId());
             return (BaseAgreement)value;
         } catch (Exception e) {
@@ -51,7 +46,12 @@ public class ClientSend {
 
     public static void main(String[] args) {
         ClientSend clientSend = new ClientSend();
-        BaseAgreement baopan = clientSend.send("", "baopan");
+        BaseAgreement baseAgreement = new BaseAgreement();
+        baseAgreement.setId("1");
+        baseAgreement.setBody("baopan");
+        baseAgreement.setType(0);
+        baseAgreement.setOriginalId("");
+        BaseAgreement baopan = clientSend.send("127.0.0.1:8088", baseAgreement);
         System.out.println("result:"+baopan);
     }
 }
