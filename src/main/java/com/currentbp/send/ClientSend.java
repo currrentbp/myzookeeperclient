@@ -1,8 +1,9 @@
 package com.currentbp.send;
 
+import com.alibaba.fastjson.JSON;
 import com.currentbp.agreement.BaseAgreement;
 import com.currentbp.cache.MyLocalCache;
-import com.currentbp.nettyUtil.NettyPoolUtil;
+import com.currentbp.tools.NettyPoolUtil;
 import io.netty.channel.Channel;
 import io.netty.channel.pool.FixedChannelPool;
 import io.netty.util.concurrent.Future;
@@ -33,7 +34,7 @@ public class ClientSend {
                     //给服务端发送数据
                     Channel channel = future.getNow();
                     //将消息发送到服务端
-                    channel.writeAndFlush(baseAgreement);
+                    channel.writeAndFlush(JSON.toJSONString(baseAgreement));
                     // 连接放回连接池，这里一定记得放回去
                     fixedChannelPool.release(channel);
                 }
@@ -51,6 +52,6 @@ public class ClientSend {
     public static void main(String[] args) {
         ClientSend clientSend = new ClientSend();
         BaseAgreement baopan = clientSend.send("", "baopan");
-        System.out.println(baopan);
+        System.out.println("result:"+baopan);
     }
 }

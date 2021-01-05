@@ -3,7 +3,6 @@ package com.currentbp.handle;
 import com.currentbp.agreement.BaseAgreement;
 import com.currentbp.cache.MyLocalCache;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelInboundHandlerAdapter;
 
 /**
  * 客户端接收处理

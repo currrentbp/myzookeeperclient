@@ -21,6 +21,7 @@ public abstract class BaseClientHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         // 当出现异常就关闭连接
+        System.out.println("===>exception");
         cause.printStackTrace();
         ctx.close();
     }
