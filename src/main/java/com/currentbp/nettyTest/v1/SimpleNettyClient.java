@@ -52,8 +52,9 @@ public class SimpleNettyClient {
     }
 
     public static void main(String[] args) throws Exception {
-        SimpleNettyClient client = new SimpleNettyClient();
-        client.connect("127.0.0.1", 8088);
-
+        for(int i=0;i<5000;i++) {
+            SimpleNettyClient client = new SimpleNettyClient();
+            client.connect("127.0.0.1", 8088);
+        }
     }
 }

@@ -33,6 +33,7 @@ public class ClientSend {
                     channel.writeAndFlush(JSON.toJSONString(baseAgreement));
                     // 连接放回连接池，这里一定记得放回去
                     fixedChannelPool.release(channel);
+                    channel.closeFuture();
                 }
             });
             Object value = new MyLocalCache().getCache(baseAgreement.getId());
@@ -40,18 +41,21 @@ public class ClientSend {
         } catch (Exception e) {
             System.out.println("ClientSend is error! msgId:" + baseAgreement.getId() +
                     " msg:" + baseAgreement.getBody() + " errorMsg:" + e.getMessage());
+            e.printStackTrace();
         }
         return null;
     }
 
     public static void main(String[] args) {
-        ClientSend clientSend = new ClientSend();
-        BaseAgreement baseAgreement = new BaseAgreement();
-        baseAgreement.setId("1");
-        baseAgreement.setBody("baopan");
-        baseAgreement.setType(0);
-        baseAgreement.setOriginalId("");
-        BaseAgreement baopan = clientSend.send("127.0.0.1:8088", baseAgreement);
-        System.out.println("result:"+baopan);
+        for(int i=0;i<5;i++) {
+            ClientSend clientSend = new ClientSend();
+            BaseAgreement baseAgreement = new BaseAgreement();
+            baseAgreement.setId(""+i);
+            baseAgreement.setBody("baopan");
+            baseAgreement.setType(0);
+            baseAgreement.setOriginalId("");
+            BaseAgreement baopan = clientSend.send("127.0.0.1:8088", baseAgreement);
+            System.out.println("result:" + baopan);
+        }
     }
 }

@@ -1,5 +1,7 @@
 package com.currentbp.nettyTest.v1;
 
+import com.alibaba.fastjson.JSON;
+import com.currentbp.agreement.BaseAgreement;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -48,7 +50,10 @@ public class SimpleNettyClientHandler extends ChannelInboundHandlerAdapter {
      */
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        String msg = "hello Server!";
+        BaseAgreement baseAgreement = new BaseAgreement();
+        baseAgreement.setId("1");
+        baseAgreement.setBody("ssss");
+        String msg = JSON.toJSONString(baseAgreement);
         ByteBuf encoded = ctx.alloc().buffer(4 * msg.length());
         encoded.writeBytes(msg.getBytes());
         ctx.write(encoded);
