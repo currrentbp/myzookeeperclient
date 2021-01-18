@@ -10,7 +10,7 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
  * @createTime 20201223
  */
 public abstract class BaseClientHandler extends ChannelInboundHandlerAdapter {
-
+    private BaseAgreement baseAgreement;
     /**
      * 本方法用于处理异常
      *
@@ -26,6 +26,11 @@ public abstract class BaseClientHandler extends ChannelInboundHandlerAdapter {
         ctx.close();
     }
 
+    public BaseAgreement getBaseAgreement() {
+        return baseAgreement;
+    }
 
-
+    public void setBaseAgreement(BaseAgreement baseAgreement) {
+        this.baseAgreement = baseAgreement;
+    }
 }

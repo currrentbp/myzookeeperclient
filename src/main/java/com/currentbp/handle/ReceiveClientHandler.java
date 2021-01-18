@@ -3,6 +3,7 @@ package com.currentbp.handle;
 import com.alibaba.fastjson.JSON;
 import com.currentbp.agreement.BaseAgreement;
 import com.currentbp.cache.MyLocalCache;
+import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 
 /**
@@ -17,12 +18,15 @@ public class ReceiveClientHandler extends BaseClientHandler {
      */
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        System.out.println("ReceiveClientHandler, receive body:" + msg.toString());
-        BaseAgreement baseAgreement = JSON.parseObject(msg.toString(),BaseAgreement.class);
-        String id = baseAgreement.getId();
+//        System.out.println("SimpleClientHandler.channelRead"+JSON.toJSONString(msg));
+        ByteBuf result = (ByteBuf) msg;
+        byte[] result1 = new byte[result.readableBytes()];
+        result.readBytes(result1);
+        String str = new String(result1);
+//        System.out.println("Server said:" + str);
+        BaseAgreement baseAgreement = JSON.parseObject(str, BaseAgreement.class);
         String originalId = baseAgreement.getOriginalId();
-        String body = baseAgreement.getBody();
-        int type = baseAgreement.getType();
-        new MyLocalCache().setCache(originalId, baseAgreement);
+        new MyLocalCache().setCache(originalId,baseAgreement);
+        result.release();
     }
 }
