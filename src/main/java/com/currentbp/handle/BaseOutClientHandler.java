@@ -4,12 +4,13 @@ import com.currentbp.agreement.BaseAgreement;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.channel.ChannelOutboundHandlerAdapter;
 
 /**
  * @author baopan
  * @createTime 20201223
  */
-public abstract class BaseClientHandler extends ChannelInboundHandlerAdapter {
+public abstract class BaseOutClientHandler extends ChannelOutboundHandlerAdapter {
     private BaseAgreement baseAgreement;
     /**
      * 本方法用于处理异常

@@ -5,7 +5,6 @@ import com.currentbp.agreement.BaseAgreement;
 import com.currentbp.cache.MyLocalCache;
 import com.currentbp.handle.ReceiveClientHandler;
 import com.currentbp.handle.SendClientHandler;
-import com.currentbp.nettyTest.v1.SimpleNettyClientHandler;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;

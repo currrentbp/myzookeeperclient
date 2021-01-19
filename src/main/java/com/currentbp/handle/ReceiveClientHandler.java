@@ -12,7 +12,7 @@ import io.netty.channel.ChannelHandlerContext;
  * @author baopan
  * @createTime 20210104
  */
-public class ReceiveClientHandler extends BaseClientHandler {
+public class ReceiveClientHandler extends BaseInClientHandler {
     /**
      * 本方法用于接收服务端发送过来的消息
      */
