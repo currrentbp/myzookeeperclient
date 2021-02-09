@@ -10,8 +10,13 @@
 >4. 处理层(handle)
 
 
-代码参考了：
+###代码参考了：
+~~~
 https://gitee.com/xjmroot/netty-pool
 http://thoreauz.com/2019/01/19/rpc2-netty-handler/
-ChannelInboundHandler 和 ChannelOutboundHandler的参考博客：
+~~~
+###ChannelInboundHandler 和 ChannelOutboundHandler的参考博客：
 https://blog.csdn.net/u010013573/article/details/85222110
+
+###read write 过程
+https://blog.csdn.net/lblblblblzdx/article/details/81587503

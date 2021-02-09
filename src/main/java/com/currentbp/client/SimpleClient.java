@@ -3,8 +3,7 @@ package com.currentbp.client;
 import com.alibaba.fastjson.JSON;
 import com.currentbp.agreement.BaseAgreement;
 import com.currentbp.cache.MyLocalCache;
-import com.currentbp.handle.ReceiveClientHandler;
-import com.currentbp.handle.SendClientHandler;
+import com.currentbp.handle.NewSendClientHandler;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -13,6 +12,8 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.codec.string.StringDecoder;
+import io.netty.handler.codec.string.StringEncoder;
 
 /**
  * @author baopan
@@ -42,14 +43,15 @@ public class SimpleClient {
             /**
              * 自定义客户端Handle（客户端在这里搞事情）
              */
-            SendClientHandler sendClientHandler = new SendClientHandler();
-            sendClientHandler.setBaseAgreement(baseAgreement);
+            NewSendClientHandler newSendClientHandler = new NewSendClientHandler();
+            newSendClientHandler.setBaseAgreement(baseAgreement);
 
             bootstrap.handler(new ChannelInitializer<SocketChannel>() {
                 @Override
                 public void initChannel(SocketChannel ch) throws Exception {
-                    ch.pipeline().addLast(sendClientHandler);
-                    ch.pipeline().addLast(new ReceiveClientHandler());
+                    ch.pipeline().addLast("decoder", new StringDecoder());
+                    ch.pipeline().addLast("encoder", new StringEncoder());
+                    ch.pipeline().addLast("handler",newSendClientHandler);
                 }
             });
 
@@ -68,6 +70,11 @@ public class SimpleClient {
         }
         return baseAgreement;
     }
+
+//    @Test
+//    public void t1(){
+//
+//    }
 
     public static void main(String[] args) {
         for(int i=0;i<100;i++){
