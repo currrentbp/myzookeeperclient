@@ -2,6 +2,8 @@ package com.currentbp.client;
 
 import com.alibaba.fastjson.JSON;
 import com.currentbp.agreement.BaseAgreement;
+import com.currentbp.agreement.KVPermanentSaveAgreement;
+import com.currentbp.agreement.KVPermanentSaveAgreementConstants;
 import com.currentbp.cache.MyLocalCache;
 import com.currentbp.handle.NewSendClientHandler;
 import io.netty.bootstrap.Bootstrap;
@@ -51,7 +53,7 @@ public class SimpleClient {
                 public void initChannel(SocketChannel ch) throws Exception {
                     ch.pipeline().addLast("decoder", new StringDecoder());
                     ch.pipeline().addLast("encoder", new StringEncoder());
-                    ch.pipeline().addLast("handler",newSendClientHandler);
+                    ch.pipeline().addLast("handler", newSendClientHandler);
                 }
             });
 
@@ -61,7 +63,7 @@ public class SimpleClient {
             channelFuture.channel().closeFuture().sync();
 
             Object returnValue = new MyLocalCache().getCache(baseAgreement.getId());
-            System.out.println("result:"+JSON.toJSONString(returnValue));
+            System.out.println("result:" + JSON.toJSONString(returnValue));
             return (BaseAgreement) returnValue;
         } catch (Exception e) {
             e.printStackTrace();
@@ -77,12 +79,20 @@ public class SimpleClient {
 //    }
 
     public static void main(String[] args) {
-        for(int i=0;i<100;i++){
+        for (int i = 0; i < 100; i++) {
             SimpleClient simpleClient = new SimpleClient();
+
+            KVPermanentSaveAgreement kvPermanentSaveAgreement = new KVPermanentSaveAgreement();
+            kvPermanentSaveAgreement.setType(KVPermanentSaveAgreementConstants.KVAgreementType.PUSH.getValue());
+            kvPermanentSaveAgreement.setKey("bp");
+            kvPermanentSaveAgreement.setValue("baopanValue");
+            kvPermanentSaveAgreement.setCanOver(true);
+
             BaseAgreement baseAgreement = new BaseAgreement();
-            baseAgreement.setId(""+i);
-            baseAgreement.setBody("myId is i:"+i);
-            simpleClient.send("127.0.0.1", 8088,baseAgreement);
+            baseAgreement.setType(1);
+            baseAgreement.setId("" + i);
+            baseAgreement.setBody(JSON.toJSONString(kvPermanentSaveAgreement));
+            simpleClient.send("127.0.0.1", 8088, baseAgreement);
         }
     }
 

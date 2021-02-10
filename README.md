@@ -20,3 +20,7 @@ https://blog.csdn.net/u010013573/article/details/85222110
 
 ###read write 过程
 https://blog.csdn.net/lblblblblzdx/article/details/81587503
+
+
+###handler执行顺序
+https://blog.csdn.net/zhengchao1991/article/details/103583766
