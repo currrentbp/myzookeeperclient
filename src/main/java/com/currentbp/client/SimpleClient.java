@@ -29,22 +29,13 @@ public class SimpleClient {
             new MyLocalCache().initKey(baseAgreement.getId());
             // 客户端启动类程序
             Bootstrap bootstrap = new Bootstrap();
-            /**
-             *EventLoop的组
-             */
+            //EventLoop的组
             bootstrap.group(worker);
-            /**
-             * 用于构造socketchannel工厂
-             */
+            //用于构造socketchannel工厂
             bootstrap.channel(NioSocketChannel.class);
-            /**设置选项
-             * 参数：Socket的标准参数（key，value），可自行百度
-             保持呼吸，不要断气！
-             * */
+            //参数：Socket的标准参数（key，value）:保持呼吸
             bootstrap.option(ChannelOption.SO_KEEPALIVE, true);
-            /**
-             * 自定义客户端Handle（客户端在这里搞事情）
-             */
+            //自定义客户端Handle（客户端在这里搞事情）
             NewSendClientHandler newSendClientHandler = new NewSendClientHandler();
             newSendClientHandler.setBaseAgreement(baseAgreement);
 
@@ -72,11 +63,6 @@ public class SimpleClient {
         }
         return baseAgreement;
     }
-
-//    @Test
-//    public void t1(){
-//
-//    }
 
     public static void main(String[] args) {
         for (int i = 0; i < 100; i++) {
